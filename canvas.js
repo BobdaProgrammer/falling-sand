@@ -64,19 +64,23 @@ function mouseDown(event) {
   function onMouseMove(event) {
     x = parseInt(event.offsetX / 4);
     y = parseInt(event.offsetY / 4);
-    if (grid[y][x][0] != 1) {
-      grid[y][x] = [1, hue];
-      const randomNumber = Math.floor(Math.random() * 4) + 1;
-      const randomNumber1 = Math.floor(Math.random() * 4) + 1;
-      if (y != grid.length - 1 && (randomNumber == 1 || randomNumber1 == 1)) { grid[y + 1][x] = [1, hue]; }
-      if (x != grid[y].length && (randomNumber == 2 || randomNumber1 == 2)) { grid[y][x + 1] = [1, hue]; }
-      if (x != 0 && (randomNumber == 3 || randomNumber1 == 3)) { grid[y][x - 1] = [1, hue]; }
-      if (y != 0 && (randomNumber == 4 || randomNumber1 == 4)) { grid[y - 1][x] = [1, hue]; }
-      if (isDraw == false) {
-        isDraw = true;
-        document.getElementById("state").innerText = "Running";
-        draw();
+    try {
+      if (grid[y][x][0] != 1) {
+        grid[y][x] = [1, hue];
+        const randomNumber = Math.floor(Math.random() * 4) + 1;
+        const randomNumber1 = Math.floor(Math.random() * 4) + 1;
+        if (y != grid.length - 1 && (randomNumber == 1 || randomNumber1 == 1)) { grid[y + 1][x] = [1, hue]; }
+        if (x != grid[y].length && (randomNumber == 2 || randomNumber1 == 2)) { grid[y][x + 1] = [1, hue]; }
+        if (x != 0 && (randomNumber == 3 || randomNumber1 == 3)) { grid[y][x - 1] = [1, hue]; }
+        if (y != 0 && (randomNumber == 4 || randomNumber1 == 4)) { grid[y - 1][x] = [1, hue]; }
+        if (isDraw == false) {
+          isDraw = true;
+          document.getElementById("state").innerText = "Running";
+          draw();
+        }
       }
+    } catch (error) {
+      
     }
   }
   if (mouseUp == false) {
