@@ -1,6 +1,6 @@
 const canvas = document.getElementById("canvas")
 let grid;
-let framePerSecond = 350;
+let framePerSecond = 100;
 let isDraw = false;
 let mouseUp = false;
 let lastEvent;

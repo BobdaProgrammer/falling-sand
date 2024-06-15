@@ -7,6 +7,7 @@ html {
     align-items: center;
     justify-content: center;
     display: flex;
+    overflow: hidden;
 }
 
 body {
@@ -20,6 +21,9 @@ body {
     -moz-user-select: none;    /* Firefox */
     -ms-user-select: none;     /* Internet Explorer/Edge */
     user-select: none;         /* Non-prefixed version, currently supported by Chrome, Edge, Opera */
+    transform: none!important;
+    transform-origin: none!important;
+    overflow: hidden;
     
 }
 #startstop{
