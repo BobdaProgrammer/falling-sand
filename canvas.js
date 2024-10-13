@@ -43,10 +43,10 @@ document.getElementById("simulate").addEventListener("change", function () {
   }
 })
 canvas.addEventListener("mousedown", function (event) {
-  lastEvent = event;
+  lastEvent = [event.offsetX, event.offsetY];
   lastEventTouch = false;
   mouseUp = false;
-  mouseDown(event,false);
+  mouseDown(lastEvent,false);
 });
 /*canvas.addEventListener("mouseup", function (event) {
   mouseUp = true;
@@ -56,22 +56,30 @@ canvas.addEventListener("mouseleave", function (event) {
 });
 canvas.addEventListener("mousemove", function (event) {
   if (mouseUp == false) {
-    lastEvent = event
+    lastEvent = [event.offsetX, event.offsetY]
     lastEventTouch = false;
-    mouseDown(event,false)
+    mouseDown(lastEvent,false)
   }
 })
 canvas.addEventListener("touchstart", function (event) {
-    lastEvent = event;
+    lastEvent = [
+      event.touches[0].clientX,
+      event.touches[0].clientY,
+      event.target.getBoundingClientRect(),
+    ];
   mouseUp = false;
   lastEventTouch=true
-    mouseDown(event,true);
+    mouseDown(lastEvent,true);
 })
 canvas.addEventListener("touchmove", function (event) {
   if (mouseUp == false) {
-    lastEvent = event;
+    lastEvent = [
+      event.touches[0].clientX,
+      event.touches[0].clientY,
+      event.target.getBoundingClientRect(),
+    ];
     lastEventTouch = true;
-    mouseDown(event,true);
+    mouseDown(lastEvent,true);
   }
 });
 canvas.addEventListener("touchend", function (event) {
@@ -82,13 +90,13 @@ function mouseDown(event, touch) {
   
   function onMouseMove(event,touch) {
     if (touch) {
-      const rect = event.target.getBoundingClientRect()
-      x = parseInt((event.touches[0].clientX - window.pageXOffset - rect.left)/4);
-      y = parseInt((event.touches[0].clientY - window.pageYOffset - rect.top) / 4);
+      const rect = event[2]
+      x = parseInt((event[0] - window.pageXOffset - rect.left)/4);
+      y = parseInt((event[1] - window.pageYOffset - rect.top) / 4);
     }
     else {
-      x = parseInt(event.offsetX / 4);
-      y = parseInt(event.offsetY / 4);
+      x = parseInt(event[0] / 4);
+      y = parseInt(event[1] / 4);
     }
     console.log(x,y)
     try {
